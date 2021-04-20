@@ -1,0 +1,34 @@
+{% extends "layout.html" %}
+{% block content %}
+<form action="/oscar/new" method="POST">
+    <div class="row">
+        <div class="col">
+            <label for="fldIndex">Index</label>
+            <input id="fldIndex" type="text" class="form-control" placeholder="Index" name="fldIndex">
+        </div>
+        <div class="col">
+            <label for="fldYear">Year</label>
+            <input id="fldYear" type="text" class="form-control" placeholder="Year"
+                   name="fldYear">
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col">
+            <label for="fldAge">Age</label>
+            <input id="fldAge" type="text" class="form-control" placeholder="Age" name="fldAge">
+        </div>
+        <div class="col">
+            <label for="fldName">Name of Actor</label>
+            <input id="fldName" type="text" class="form-control" placeholder="Shah Rukh Khan" name="fldName">
+        </div>
+        <div class="col">
+            <label for="fldMovie">Name of Movie</label>
+            <input id="fldMovie" type="text" class="form-control" placeholder="Zero" name="fldMovie">
+        </div>
+    </div>
+    <button type="submit" class="mt-2 btn btn-success">Success</button>
+
+</form>
+
+{% endblock %}

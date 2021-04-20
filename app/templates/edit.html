@@ -1,0 +1,33 @@
+{% extends "layout.html" %}
+{% block content %}
+<form action="/edit/{{actor.fldIndex}}" method="post">
+    <div class="row">
+        <div class="col">
+            <label for="fldIndex">Index</label>
+            <input id="fldIndex" type="text" class="form-control" placeholder="Index" name="fldIndex" value="{{actor.fldIndex}}">
+        </div>
+        <div class="col">
+            <label for="fldYear">Year</label>
+            <input id="fldYear" type="text" class="form-control" placeholder="Year"
+                   name="fldYear" value="{{actor.fldYear}}">
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col">
+            <label for="fldAge">Age</label>
+            <input id="fldAge" type="text" class="form-control" placeholder="Age" name="fldAge" value="{{actor.fldAge}}">
+        </div>
+        <div class="col">
+            <label for="fldName">Name of Actor</label>
+            <input id="fldName" type="text" class="form-control" placeholder="Shah Rukh Khan" name="fldName" value="{{actor.fldName}}">
+        </div>
+        <div class="col">
+            <label for="fldMovie">Name of Movie</label>
+            <input id="fldMovie" type="text" class="form-control" placeholder="Zero" name="fldMovie" value="{{actor.fldMovie}}">
+        </div>
+    </div>
+    <button type="submit" class="btn btn-success">Save</button>
+
+</form>
+{% endblock %}
