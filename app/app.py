@@ -96,23 +96,46 @@ def api_retrieve(actor_id) -> str:
     return resp
 
 
-@app.route('/api/v1/oscars/', methods=['POST'])
+
+@app.route('/api/v1/oscars/add', methods=['POST'])
 def api_add() -> str:
-    resp = Response(status=201, mimetype='application/json')
+    cursor = mysql.get_db().cursor()
+    print("reached before fetching input data")
+    content = request.json
+    inputData = (content["fldIndex"], content["fldYear"], content["fldAge"],
+                 content["fldName"], content["fldMovie"])
+    sql_insert_query = """INSERT INTO tblOscarFemale (fldIndex,fldYear,fldAge,fldName,fldMovie) VALUES (%s, %s, %s, %s,%s) """
+
+    print("reached before executing the query")
+    cursor.execute(sql_insert_query, inputData)
+    print("reached before commit")
+    mysql.get_db().commit()
+    resp = Response(status=200, mimetype='application/json')
     return resp
 
 
-@app.route('/api/v1/oscars/<int:actor_id>', methods=['PUT'])
+@app.route('/api/v1/oscars/edit/<int:actor_id>', methods=['PUT'])
 def api_edit(actor_id) -> str:
-    resp = Response(status=201, mimetype='application/json')
+    cursor = mysql.get_db().cursor()
+    content = request.json
+    inputData = (content['fldIndex'], content['fldYear'], content['fldAge'],
+                 content['fldName'], content['fldMovie'], actor_id)
+    sql_update_query = """UPDATE tblOscarFemale t SET t.fldIndex = %s, t.fldYear = %s, t.fldAge = %s, t.fldName = 
+       %s, t.fldMovie = %s WHERE t.fldIndex = %s """
+    cursor.execute(sql_update_query, inputData)
+    mysql.get_db().commit()
+    resp = Response(status=200, mimetype='application/json')
     return resp
 
 
-@app.route('/api/oscars/<int:actor_id>', methods=['DELETE'])
+@app.route('/api/v1/oscars/delete/<int:actor_id>', methods=['DELETE'])
 def api_delete(actor_id) -> str:
-    resp = Response(status=210, mimetype='application/json')
+    cursor = mysql.get_db().cursor()
+    sql_delete_query = """DELETE FROM tblOscarFemale WHERE fldIndex = %s """
+    cursor.execute(sql_delete_query, actor_id)
+    mysql.get_db().commit()
+    resp = Response(status=200, mimetype='application/json')
     return resp
-
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', debug=True)
